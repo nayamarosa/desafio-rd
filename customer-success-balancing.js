@@ -9,11 +9,16 @@ function customerSuccessBalancing(
   customers,
   customerSuccessAway
 ) {
-  /**
-   * ===============================================
-   * =========== Write your solution here ==========
-   * ===============================================
-   */
+  console.log('funcionário', customerSuccess);
+  console.log('cliente', customers);
+  console.log('funcionário fora', customerSuccessAway);
+
+  // filtrar funcionários fora
+  const customerSuccessAvailable = customerSuccess.filter((cs) => {
+    return !customerSuccessAway.includes(cs.id);
+  })
+  console.log('newCSList', customerSuccessAvailable);
+
 }
 
 test("Scenario 1", () => {
