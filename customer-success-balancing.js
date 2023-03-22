@@ -19,6 +19,22 @@ function customerSuccessBalancing(
   })
   console.log('newCSList', customerSuccessAvailable);
 
+  // comparar com score das empresas e funcionários
+  const divideCSByScore = customerSuccessAvailable.map((cs) => {
+    countCustomer = 0;
+    return customers.map((customer) => {
+      if(customer.score <= cs.score) {
+        return {...cs, countCustomer: ++countCustomer};
+      } else {
+        return {...cs, countCustomer: countCustomer};
+      }
+    }).at(-1);
+  })
+
+  console.log('divide customer', divideCSByScore);
+
+  //qual atende o maio numero de clientes
+  
 }
 
 test("Scenario 1", () => {
