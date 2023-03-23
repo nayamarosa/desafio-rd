@@ -9,21 +9,24 @@ function customerSuccessBalancing(
   customers,
   customerSuccessAway
 ) {
-  console.log('funcionário', customerSuccess);
+  // console.log('funcionário', customerSuccess);
   console.log('cliente', customers);
-  console.log('funcionário fora', customerSuccessAway);
+  // console.log('funcionário fora', customerSuccessAway);
 
   // filtrar funcionários fora
   const customerSuccessAvailable = customerSuccess.filter((cs) => {
     return !customerSuccessAway.includes(cs.id);
-  })
+  }).sort((a, b) => a.score - b.score)
   console.log('newCSList', customerSuccessAvailable);
 
   // comparar com score das empresas e funcionários
+  let removedCostumer = [];
   const divideCSByScore = customerSuccessAvailable.map((cs) => {
     countCustomer = 0;
     return customers.map((customer) => {
-      if(customer.score <= cs.score) {
+      const checkCurrentCostumer = removedCostumer.indexOf(customer) !== -1;
+      if(customer.score <= cs.score && !checkCurrentCostumer) {
+        removedCostumer.push(customer);
         return {...cs, countCustomer: ++countCustomer};
       } else {
         return {...cs, countCustomer: countCustomer};
@@ -33,8 +36,15 @@ function customerSuccessBalancing(
 
   console.log('divide customer', divideCSByScore);
 
-  //qual atende o maio numero de clientes
-  
+  //qual atende o maior numero de clientes
+  // const biggestCSClientList = divideCSByScore.map((cs) => {
+  //   if(cs.countCustomer > 0) {
+  //     console.log(cs);
+  //   } else {
+  //     return 0;
+  //   }
+  // });
+  // console.log('biggest cs list', biggestCSClientList);
 }
 
 test("Scenario 1", () => {
