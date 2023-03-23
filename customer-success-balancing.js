@@ -9,9 +9,6 @@ function customerSuccessBalancing(
   customers,
   customerSuccessAway
 ) {
-  // console.log('funcionário', customerSuccess);
-  console.log('cliente', customers);
-  // console.log('funcionário fora', customerSuccessAway);
 
   // filtrar funcionários fora
   const customerSuccessAvailable = customerSuccess.filter((cs) => {
@@ -37,14 +34,24 @@ function customerSuccessBalancing(
   console.log('divide customer', divideCSByScore);
 
   //qual atende o maior numero de clientes
-  // const biggestCSClientList = divideCSByScore.map((cs) => {
-  //   if(cs.countCustomer > 0) {
-  //     console.log(cs);
-  //   } else {
-  //     return 0;
-  //   }
-  // });
-  // console.log('biggest cs list', biggestCSClientList);
+  const biggestCSClientList = Math.max(...divideCSByScore.map(big => big.countCustomer));
+
+  let id;
+  const length = divideCSByScore.filter(item => {
+    return item.countCustomer === biggestCSClientList
+  }).length;
+
+  divideCSByScore.filter(item => {
+    if(item.countCustomer === biggestCSClientList && length <= 1) {
+      id = item.id;
+    } else if(item.countCustomer === biggestCSClientList && length > 1) {
+      id = 0;
+    }
+  });
+
+  console.log('biggest cs list', biggestCSClientList);
+  return id;
+
 }
 
 test("Scenario 1", () => {
